@@ -1,0 +1,294 @@
+body {
+    margin: 0;
+    font-family: sans-serif; /* Basic font stack */
+  }
+  
+  .infographic-container {
+    position: relative; /* Crucial for absolute positioning of children */
+    width: 100%;
+    min-height: 80vh; /* Ensure enough height */
+    padding: 4rem 2rem; /* Padding around the content */
+    display: flex; /* Use flex for centering fallback/alignment */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide overflowing elements */
+    box-sizing: border-box;
+  }
+  
+  /* Background Image Layer */
+  .infographic-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Replace with your actual background image path */
+    /* background: url('/objective_design.jpg') no-repeat center center/cover; */
+    filter: blur(5px) brightness(0.7); /* Blur and darken */
+    z-index: -1; /* Place behind everything */
+  }
+  
+  /* Layout container for positioning center and steps */
+  .infographic-layout {
+      position: relative;
+      width: 100%;
+      max-width: 1000px; /* Adjust max-width as needed */
+      height: 500px; /* Fixed height or dynamic - adjust based on content */
+      /* background-color: rgba(0, 255, 0, 0.1); */ /* Optional: for debugging layout */
+  }
+  
+  /* SVG Layer for Lines */
+  .infographic-svg-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Behind content, above background */
+    pointer-events: none; /* Allow clicks to pass through */
+    overflow: visible; /* Ensure lines aren't clipped */
+  }
+  
+  /* Central Circle */
+  .infographic-main {
+    position: absolute; /* Position relative to infographic-layout */
+    transform: translate(-50%, -50%); /* Center based on top/left */
+    width: 280px; /* Adjust size */
+    height: 280px; /* Adjust size */
+    background: white;
+    border-radius: 50%;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3; /* Above lines */
+    box-sizing: border-box;
+  }
+  
+  .infographic-main .icon {
+    font-size: 2.5rem; /* Larger icon */
+    margin-bottom: 0.8rem;
+    color: #333;
+  }
+  
+  .infographic-main h2 {
+    margin: 0.5rem 0;
+    font-size: 1.1rem; /* Slightly smaller title */
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .infographic-main p {
+    color: #666;
+    font-size: 0.8rem; /* Smaller text */
+    line-height: 1.4;
+    max-width: 80%; /* Prevent text from hitting edges */
+  }
+  
+  /* Container for all steps */
+  .infographic-steps {
+      position: absolute;
+      top: 0;
+      left: 0; /* Steps will be positioned relative to this */
+      width: 100%;
+      height: 100%;
+      /* background-color: rgba(0, 0, 255, 0.1); */ /* Optional: for debugging layout */
+      pointer-events: none; /* Wrapper doesn't block clicks */
+      z-index: 2; /* Above lines, below center circle potentially */
+  }
+  
+  /* Wrapper for each individual step (node + box) */
+  .infographic-step-wrapper {
+      position: absolute;
+      transform: translate(-50%, -50%); /* Center the wrapper at its top/left coords */
+      display: flex;
+      align-items: center;
+      width: 300px; /* Adjust width of the step area */
+      /* background-color: rgba(255, 0, 0, 0.1); */ /* Optional: for debugging */
+      pointer-events: auto; /* Enable interaction for steps */
+      z-index: 2; /* Ensure steps are above lines */
+  }
+  
+  /* Step Node (White Circle) */
+  .step-node {
+      width: 50px; /* Size of the circle */
+      height: 50px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0; /* Prevent shrinking */
+      position: relative; /* For icon positioning if needed */
+      z-index: 3; /* Above step box */
+  }
+  
+  .step-icon {
+      font-size: 1.5rem; /* Icon size inside node */
+      color: #333;
+  }
+  
+  /* Step Content Box (Dark Arrow Shape) */
+  .infographic-step {
+    background: #2d2d2d; /* Dark grey */
+    color: white;
+    padding: 0.8rem 1.5rem 0.8rem 2rem; /* Adjust padding: top right bottom left */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: relative; /* Needed for number badge */
+    flex-grow: 1; /* Take available space */
+    margin-left: -25px; /* Overlap with the node circle */
+    min-width: 250px; /* Ensure minimum width */
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+  
+    /* Arrow shape using clip-path */
+    clip-path: polygon(
+      0% 0%,             /* top left */
+      calc(100% - 20px) 0%, /* top right before arrow */
+      100% 50%,           /* arrow tip */
+      calc(100% - 20px) 100%,/* bottom right before arrow */
+      0% 100%            /* bottom left */
+    );
+  }
+  
+  .infographic-step:hover {
+    background: #3f3f3f; /* Slightly lighter on hover */
+    transform: scale(1.03); /* Subtle scale effect */
+  }
+  
+  .step-content {
+    /* Flex properties handled by parent */
+  }
+  
+  .step-content h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem 0; /* Add space below title */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .step-content p {
+    font-size: 0.75rem;
+    color: #ccc;
+    line-height: 1.4;
+    margin: 0;
+  }
+  
+  /* Step Number Badge */
+  .step-number-badge {
+    position: absolute;
+    top: -10px; /* Position above the box */
+    right: 15px; /* Position from the right edge before clip-path affects it */
+    background: #555; /* Badge background */
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 4; /* Above everything */
+  }
+  
+  
+  /* --- Responsive Adjustments --- */
+  @media screen and (max-width: 900px) {
+      .infographic-layout {
+          height: auto; /* Allow height to adjust */
+          position: static; /* Change layout method */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          max-width: 500px; /* Limit width */
+      }
+      .infographic-svg-lines {
+          display: none; /* Hide SVG lines on smaller screens */
+      }
+      .infographic-main {
+          position: static; /* No longer absolute */
+          transform: none;
+          width: 90%;
+          max-width: 300px;
+          height: auto;
+          margin-bottom: 3rem; /* Space below center */
+          padding: 1.5rem;
+      }
+      .infographic-steps {
+          position: static; /* No longer absolute */
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+      }
+      .infographic-step-wrapper {
+          position: static; /* No longer absolute */
+          transform: none;
+          width: 100%;
+          /* Re-introduce simple left-alignment or centering */
+          justify-content: flex-start; /* Align items left */
+           /* Add some margin if needed */
+           margin-bottom: 1rem;
+      }
+      .infographic-step {
+         margin-left: -20px; /* Adjust overlap */
+         min-width: auto; /* Allow shrinking */
+          clip-path: polygon( /* Simpler clip-path maybe, or keep */
+              0% 0%, calc(100% - 15px) 0%, 100% 50%, calc(100% - 15px) 100%, 0% 100%
+          );
+      }
+      .step-node {
+          width: 40px;
+          height: 40px;
+      }
+      .step-icon {
+          font-size: 1.2rem;
+      }
+      .step-number-badge {
+          width: 20px;
+          height: 20px;
+          font-size: 0.7rem;
+          top: -8px;
+          right: 10px;
+      }
+  }
+  
+  @media screen and (max-width: 480px) {
+      .infographic-container {
+          padding: 2rem 1rem;
+      }
+      .infographic-main {
+          padding: 1rem;
+      }
+      .infographic-main h2 {
+          font-size: 1rem;
+      }
+       .infographic-main p {
+          font-size: 0.75rem;
+      }
+       .infographic-step {
+          padding: 0.6rem 1.2rem 0.6rem 1.5rem;
+          margin-left: -15px;
+          clip-path: polygon( /* Even smaller arrow */
+              0% 0%, calc(100% - 10px) 0%, 100% 50%, calc(100% - 10px) 100%, 0% 100%
+          );
+       }
+        .step-content h3 {
+          font-size: 0.8rem;
+       }
+       .step-content p {
+          font-size: 0.7rem;
+       }
+       .step-number-badge {
+           right: 5px;
+       }
+  }
