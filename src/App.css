@@ -3860,3 +3860,1650 @@ body {
 
 
 
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+    --primary-dark: #1a1a1a;
+    --secondary-dark: #2c2c2c;
+    --text-light: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --accent-color: #00ffff;
+    --accent-glow: rgba(0, 255, 255, 0.5);
+    --timeline-color: #444;
+}
+
+.machu-picchu-reasons-container {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 80px 20px;
+    overflow-x: hidden; 
+    font-family: 'Open Sans', sans-serif;
+}
+
+.main-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem); 
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 100px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.main-title.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.main-title span {
+    text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+}
+
+
+.timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* The actual timeline line */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--timeline-color);
+    top: 20px; /* Start below the first item's visual center */
+    bottom: 20px; /* End above the last item's visual center */
+    left: 50%;
+    margin-left: -2px;
+    z-index: 1;
+    border-radius: 2px;
+    /* Animation for the line drawing itself */
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: drawLine 3s ease-out forwards;
+    animation-delay: 1s; /* Start after title animation */
+}
+
+@keyframes drawLine {
+    to {
+        transform: scaleY(1);
+    }
+}
+
+.reason-item {
+    padding: 20px 40px;
+    position: relative;
+    background-color: transparent; /* Items themselves don't need a background */
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 60px; /* Spacing between items */
+    opacity: 0;
+    z-index: 2; /* Above the timeline line */
+}
+
+/* Alignment */
+.reason-item.left {
+    left: 0;
+    transform: translateX(-50px); /* Initial position for animation */
+}
+
+.reason-item.right {
+    left: 50%;
+    transform: translateX(50px); /* Initial position for animation */
+}
+
+.reason-item.animate {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Stagger animations for items */
+.reason-item.animate.reason-item-1 { transition-delay: 0.2s; }
+.reason-item.animate.reason-item-2 { transition-delay: 0.4s; }
+.reason-item.animate.reason-item-3 { transition-delay: 0.6s; }
+.reason-item.animate.reason-item-4 { transition-delay: 0.8s; }
+.reason-item.animate.reason-item-5 { transition-delay: 1.0s; }
+
+
+/* Timeline dots */
+.reason-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--secondary-dark);
+    border: 4px solid var(--accent-color);
+    top: 50%; /* Center vertically relative to the text block */
+    transform: translateY(-50%);
+    border-radius: 50%;
+    z-index: 3; /* Above the timeline line and item */
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+}
+
+.reason-item.left::after {
+    right: -50px; /* Adjust based on padding and desired position */
+}
+
+.reason-item.right::after {
+    left: -50px; /* Adjust based on padding and desired position */
+}
+
+.reason-item:hover::after {
+    transform: translateY(-50%) scale(1.2);
+    background-color: var(--accent-color);
+}
+
+
+.diamond-image-container {
+    width: 180px; /* Adjust size as needed */
+    height: 180px; /* Same as width for a square before clipping */
+    margin-bottom: 20px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    overflow: hidden;
+    background-color: var(--secondary-dark); /* Fallback if image doesn't load */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+    position: relative; /* For potential pseudo-element effects */
+}
+
+.reason-item.left .diamond-image-container {
+    float: left; /* Original image positioning */
+    margin-right: 30px;
+}
+
+.reason-item.right .diamond-image-container {
+    float: right; /* Original image positioning */
+    margin-left: 30px;
+}
+
+
+.diamond-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the diamond, might crop */
+    transition: transform 0.4s ease;
+}
+
+.diamond-image-container:hover {
+    transform: scale(1.1) rotate(5deg); /* Cool hover effect */
+    box-shadow: 0 0 25px var(--accent-glow);
+}
+
+.diamond-image-container:hover .diamond-image {
+    transform: scale(1.2); /* Zoom image inside diamond on hover */
+}
+
+
+.reason-text-content {
+    color: var(--text-light);
+    overflow: hidden; /* To contain floated image container */
+}
+
+.reason-item.left .reason-text-content {
+    text-align: left;
+}
+
+.reason-item.right .reason-text-content {
+    text-align: left; /* Text is still left-aligned, but block is on right */
+}
+
+
+.reason-text-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--text-light);
+    position: relative;
+}
+
+/* Cool underline effect for titles */
+.reason-text-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease-in-out;
+}
+
+.reason-item.animate .reason-text-content h3::after {
+    transform: scaleX(1);
+     /* Delay this to start after the item slides in */
+    transition-delay: inherit; /* Inherits from .reason-item.animate */
+}
+/* If specific delay is needed:
+.reason-item.animate.reason-item-1 .reason-text-content h3::after { transition-delay: 0.7s; }
+... and so on for others
+*/
+
+
+.reason-text-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline::after {
+        left: 30px; /* Move timeline line to the left */
+    }
+
+    .reason-item,
+    .reason-item.left,
+    .reason-item.right {
+        width: 100%;
+        padding-left: 80px; /* Space for the dot and line */
+        padding-right: 15px;
+        left: 0; /* Reset positioning */
+        transform: translateX(-30px); /* Initial position for animation */
+    }
+    .reason-item.animate {
+        transform: translateX(0);
+    }
+
+
+    .reason-item.left::after,
+    .reason-item.right::after {
+        left: 20px; /* Position dot relative to the new line */
+        /* transform: translateY(-50%) translateX(-50%); /* Center on the line */
+    }
+
+    .reason-item.left .diamond-image-container,
+    .reason-item.right .diamond-image-container {
+        float: none;
+        margin: 0 auto 20px auto; /* Center the diamond above text */
+    }
+
+    .reason-text-content {
+        text-align: left;
+    }
+
+    .main-title {
+        margin-bottom: 60px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    --primary-font: 'Poppins', sans-serif;
+    --title-font: 'Poppins', sans-serif; /* Changed from Playfair for consistency with image */
+    --text-color-light: #f0f4f8;
+    --text-color-dark: #333;
+    --accent-color: #00aaff; /* A vibrant blue, adjust as needed */
+    --accent-color-darker: #0077cc;
+    --card-bg: rgba(10, 25, 47, 0.7); /* Dark semi-transparent for cards */
+    --overlay-bg: rgba(17, 33, 58, 0.6); /* Overlay for background image */
+    --slide-transition-speed: 0.8s; /* Slower for a smoother, cooler effect */
+    --slide-width: 280px; /* Width of each slide card */
+    --slide-gap: 20px; /* Gap between slides */
+}
+
+.travel-showcase-container {
+    min-height: 100vh; /* Make it take at least the full viewport height */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Changed to space-between for left/right layout */
+    padding: 60px 5vw; /* Responsive padding */
+    position: relative;
+    overflow: hidden; /* Important for slider behavior */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.travel-showcase-container.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--overlay-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: inherit; /* Inherit padding from parent */
+    gap: 40px; /* Gap between text content and slider */
+}
+
+.text-content {
+    flex: 1 1 45%; /* Takes up about 45% of the width */
+    max-width: 600px;
+    color: var(--text-color-light);
+    font-family: var(--primary-font);
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+.travel-showcase-container.animate-in .text-content {
+    animation: slideInFromLeft 1s ease-out 0.5s forwards;
+}
+
+@keyframes slideInFromLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.main-destination-title {
+    font-family: var(--title-font);
+    font-size: clamp(3rem, 8vw, 6rem); /* Responsive title */
+    font-weight: 900; /* Bolder for impact */
+    line-height: 1.1;
+    margin-bottom: 25px;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.main-destination-title span {
+    display: block; /* Puts "Explore" on its own line if needed, or adjust as per design */
+    font-weight: 600; /* Slightly less bold for the first word */
+    font-size: 0.7em; /* Smaller first word */
+    letter-spacing: 1px;
+}
+
+
+.destination-description {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    line-height: 1.8;
+    margin-bottom: 35px;
+    max-width: 500px;
+    color: #e0e0e0; 
+}
+
+.explore-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-family: var(--primary-font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
+}
+
+.explore-button:hover {
+    background-color: var(--accent-color-darker);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 170, 255, 0.5);
+}
+
+.explore-button .arrow-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.explore-button:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
+
+/* --- Image Slider --- */
+.image-slider-wrapper {
+    flex: 1 1 50%; /* Takes up about 50% of the width */
+    position: relative;
+    height: 500px; /* Adjust as needed, or make it percentage-based */
+    max-width: 700px; /* Max width for the slider area */
+    opacity: 0;
+    transform: translateX(50px);
+}
+
+.travel-showcase-container.animate-in .image-slider-wrapper {
+    animation: slideInFromRight 1s ease-out 0.7s forwards;
+}
+
+@keyframes slideInFromRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slider-track-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* This is crucial to hide non-visible parts of the track */
+    position: relative; /* For absolute positioning of arrows if needed */
+}
+
+.slider-track {
+    display: flex;
+    height: 100%; /* Ensure track takes full height for card alignment */
+    /* The transform for moving slides will be set by JS */
+    transition: transform var(--slide-transition-speed) cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Cool elastic transition */
+    position: relative; /* For z-index stacking */
+    padding-left: calc(50% - var(--slide-width) / 2); /* Helps center the first item */
+}
+
+.slide-card {
+    min-width: var(--slide-width);
+    max-width: var(--slide-width);
+    height: 90%; /* Slightly less than track for vertical centering illusion */
+    margin-right: var(--slide-gap);
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: scale(0.85) perspective(1000px) rotateY(0deg);
+    filter: brightness(0.7);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.slide-card.active {
+    transform: scale(1) perspective(0px) rotateY(0deg); /* No perspective for active */
+    opacity: 1;
+    filter: brightness(1);
+    z-index: 3; /* Active slide on top */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Styling for slides immediately to the left/right of active */
+.slide-card.adjacent {
+    transform: scale(0.9) perspective(1000px) rotateY(0deg);
+    opacity: 0.8;
+    filter: brightness(0.85);
+    z-index: 2;
+}
+
+/* Specific styles for cards that are "before" the active one in the array */
+.slide-card.prev-slide-style:not(.active):not(.adjacent) {
+    transform: scale(0.8) perspective(1000px) translateX(-50px) rotateY(20deg);
+}
+
+/* Specific styles for cards that are "after" the active one in the array */
+.slide-card.next-slide-style:not(.active):not(.adjacent) {
+    transform: scale(0.8) perspective(1000px) translateX(50px) rotateY(-20deg);
+}
+
+
+.slide-card:hover:not(.active) {
+    transform: scale(0.95) translateY(-5px);
+    opacity: 0.9;
+    filter: brightness(0.9);
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.slide-card:hover .slide-image {
+    transform: scale(1.1);
+}
+
+.slide-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    color: var(--text-color-light);
+    transform: translateY(100%);
+    transition: transform 0.4s ease-out;
+}
+
+.slide-card:hover .slide-info,
+.slide-card.active .slide-info {
+    transform: translateY(0);
+}
+
+.slide-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.slide-country {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.slide-bookmark {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(10, 25, 47, 0.8); /* Semi-transparent dark */
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.slide-bookmark:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+}
+.bookmark-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Slider Navigation Arrows */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+.image-slider-wrapper:hover .slider-nav {
+    opacity: 1; /* Show on wrapper hover */
+}
+.slider-nav:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+.slider-nav.prev { left: -15px; }
+.slider-nav.next { right: -15px; }
+
+
+.slider-dots {
+    position: absolute;
+    bottom: -30px; /* Positioned below the slider track */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 5; /* Above background, below active card if overlapping */
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--accent-color);
+    transform: scale(1.3);
+}
+.dot:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) { /* Tablet */
+    .content-overlay {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 5vw;
+        justify-content: center; /* Center content vertically */
+    }
+    .text-content {
+        max-width: 100%;
+        margin-bottom: 40px;
+        align-items: center; /* Center button */
+        display: flex;
+        flex-direction: column;
+    }
+    .main-destination-title {
+        font-size: clamp(2.5rem, 7vw, 4.5rem);
+    }
+    .destination-description {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .image-slider-wrapper {
+        width: 100%;
+        max-width: 100%; /* Allow slider to take more width */
+        height: 450px; /* Adjust height */
+    }
+    .slider-track {
+         /* Adjust padding to ensure centering still works visually */
+        padding-left: calc(50% - var(--slide-width) / 2 - var(--slide-gap) / 2);
+    }
+     .slider-nav.prev { left: 5px; }
+     .slider-nav.next { right: 5px; }
+}
+
+@media (max-width: 768px) { /* Mobile */
+    :root {
+        --slide-width: 240px; /* Smaller slides on mobile */
+    }
+    .travel-showcase-container, .content-overlay {
+        padding: 30px 5vw;
+    }
+    .main-destination-title {
+        margin-bottom: 20px;
+    }
+     .destination-description {
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+    }
+    .explore-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    .image-slider-wrapper {
+        height: 400px;
+    }
+    .slider-dots {
+        bottom: -25px;
+    }
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.design-component {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+  background-color: #f9f9f9;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.left-section {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.intro-text {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.highlight {
+  color: #007bff; /* Example highlight color */
+  /* Add some cool effect on highlight hover */
+}
+
+.intro-text::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: #007bff;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.intro-text:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sub-text {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.about-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.about-button:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+
+.right-section {
+  flex: 2;
+  position: relative;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Smoother animation */
+}
+
+.slide {
+  flex: 0 0 100%;
+  position: relative;
+}
+
+.slide-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.slide:hover .image-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image-title {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.image-subtitle {
+  font-size: 1em;
+  font-style: italic;
+}
+
+.see-details {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #007bff;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.see-details::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #007bff;
+  transition: width 0.3s ease-in-out;
+}
+
+.see-details:hover::after {
+  width: 100%;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.slider-container:hover .slider-button {
+  opacity: 1;
+}
+
+.slider-button:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-button.prev {
+  left: 10px;
+}
+
+.slider-button.next {
+  right: 10px;
+}
+
+.slider-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #007bff;
+}
+
+.dot:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.other-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.option-button {
+  background: none;
+  border: 1px solid #ccc;
+  color: #666;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: border-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.option-button.active {
+  border-color: #007bff;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.option-button:hover {
+  border-color: #007bff;
+  color: #007bff;
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+  .design-component {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .left-section {
+    padding-right: 0;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .right-section {
+    width: 100%;
+  }
+
+  .other-options {
+    justify-content: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Impact&family=Montserrat:wght@400;700;900&family=Roboto+Condensed:wght@700&family=Roboto:wght@300;400;700&display=swap');
+
+/*
+  Font similar to image:
+  Main Title: Impact, or a very bold condensed sans-serif like Roboto Condensed Bold or Oswald.
+  Logo: Similar bold condensed style.
+  Other text: Clean sans-serif like Montserrat or Roboto.
+*/
+
+:root {
+  /* Colors inspired by the image */
+  --color-dark-bg: #1a1a1a; /* Very dark grey for left pane */
+  --color-logo-main: #8cc63f; /* Bright green for logo text */
+  --color-logo-secondary: #b5d334; /* Lighter green for other logo text / leaves */
+  --color-subtitle-left: #a2c52f; /* Green for "AMAZING TRIPS" */
+  --color-text-left-desc: #b0b0b0; /* Light grey for description */
+  --color-text-white: #ffffff;
+  --color-nav-bg: rgba(0, 0, 0, 0.5); /* Semi-transparent black for nav */
+  --color-slider-controls: rgba(255, 255, 255, 0.7);
+  --color-slider-controls-hover: rgba(255, 255, 255, 1);
+
+  /* Fonts */
+  --font-main-title: 'Impact', 'Arial Black', 'Roboto Condensed', sans-serif; /* Impact is very close */
+  --font-logo: 'Impact', 'Roboto Condensed', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-nav: 'Roboto', sans-serif;
+
+  /* CSS variables for slider image to be used in title text background */
+  --current-slide-image: none;
+  --slide-image-position-x: center;
+  --slide-image-position-y: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  /* overflow: hidden; */
+  height: 100vh;
+  background-color: var(--color-dark-bg); /* Fallback for overall page */
+}
+
+.page-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* --- Left Pane --- */
+.left-pane {
+  width: 48%; /* Slightly less than half as per image */
+  background-color: var(--color-dark-bg);
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  position: relative;
+}
+
+.logo-header {
+  margin-bottom: 60px; /* Space between logo and "AMAZING TRIPS" */
+}
+
+.logo-leaves {
+  margin-bottom: 5px;
+  margin-left: 5px; /* To align with text below slightly */
+  font-size: 28px; /* Adjust size of leaves */
+  color: var(--color-logo-secondary);
+}
+
+.leaf {
+  margin-right: -5px; /* Overlap leaves slightly */
+  transform-origin: bottom left;
+}
+.leaf1 { transform: rotate(-25deg) scale(0.9); }
+.leaf2 { transform: rotate(0deg) scale(1); margin-left: 5px; margin-right: 5px; position: relative; top: -5px;}
+.leaf3 { transform: rotate(20deg) scale(0.85); }
+
+.logo-text {
+  font-family: var(--font-logo);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.logo-text-ethiccraft {
+  display: block;
+  font-size: 38px; /* Adjust as per image */
+  font-weight: bold; /* Impact is already bold */
+  color: var(--color-logo-main);
+  letter-spacing: 1px;
+}
+
+.logo-text-society {
+  display: block;
+  font-size: 30px; /* Slightly smaller */
+  font-weight: bold;
+  color: var(--color-logo-secondary);
+  letter-spacing: 1px;
+}
+
+.logo-tagline {
+  font-family: var(--font-nav);
+  font-size: 12px;
+  color: var(--color-text-left-desc);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+.left-pane-content {
+  margin-top: auto; /* Pushes this content towards the bottom of its available space before main title*/
+  margin-bottom: 18vh; /* Adjust to position above where "FOREST" ends */
+}
+
+.amazing-trips-subtitle {
+  font-family: var(--font-nav); /* Or Montserrat Bold */
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-subtitle-left);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px; /* Space before main title appears visually below it */
+}
+
+.description-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-left-desc);
+  max-width: 450px;
+  margin-bottom: 25px;
+}
+
+.learn-more-link {
+  font-family: var(--font-nav);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text-left-desc);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.learn-more-link:hover {
+  color: var(--color-text-white);
+}
+
+.learn-more-arrow {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.learn-more-link:hover .learn-more-arrow {
+  transform: translateX(5px);
+}
+
+
+/* --- Right Pane --- */
+.right-pane {
+  width: 52%;
+  position: relative; /* For nav and slider controls positioning */
+  background-color: #333; /* Fallback if images don't load */
+  overflow: hidden; /* Crucial for slides */
+}
+
+.main-navigation {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  z-index: 20;
+  background-color: var(--color-nav-bg);
+  padding: 10px 15px;
+  border-radius: 3px;
+}
+
+.main-navigation a {
+  font-family: var(--font-nav);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-white);
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-left: 25px;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+  opacity: 0.8;
+}
+.main-navigation a:first-child {
+  margin-left: 0;
+}
+.main-navigation a:hover {
+  opacity: 1;
+  color: var(--color-logo-main); /* Highlight on hover */
+}
+
+.image-slider-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  /* background-position is set inline */
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  will-change: opacity;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+/* --- Main Title Overlay --- */
+.main-title-overlay {
+  position: absolute;
+  top: 50%; /* Adjust as needed, this is a common starting point */
+  left: 0;
+  right: 0;
+  transform: translateY(-65%); /* Fine-tune vertical centering */
+  z-index: 15;
+  font-family: var(--font-main-title);
+  font-size: clamp(60px, 12vw, 150px); /* Responsive font size */
+  line-height: 0.9; /* Very tight line height for stacked look */
+  text-transform: uppercase;
+  font-weight: normal; /* Impact is already very bold */
+  display: flex; /* To allow parts to sit side-by-side if needed for alignment */
+  justify-content: center; /* Center the whole block conceptually */
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.title-part-left,
+.title-part-right {
+  display: block; /* Each part on its own line */
+  text-align: left; /* Align text to the left of its conceptual block */
+  padding-left: 5%; /* Start text from edge of left pane, adjust as needed */
+}
+
+.title-part-left {
+  /* This creates the effect of the image being the text fill, darkened */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), /* Darkening overlay */
+    var(--current-slide-image);
+  background-size: cover;
+  background-position: var(--slide-image-position-x) var(--slide-image-position-y);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative; /* Important for z-index if there were other overlaps */
+  /* We need to ensure this text only renders visually within the left pane bounds.
+     However, it's simpler to let it be 'full width' and the right-part will overlay it.
+     The background image will extend, but only be visible through the text.
+  */
+  width: 100%; /* Make it span so background image positioning is more intuitive */
+}
+
+.title-part-right {
+  color: var(--color-text-white);
+  position: absolute; /* Position it directly over where the left part would be */
+  top: var(--font-size); /* Needs to be dynamic based on line height of first word */
+  left: 0; /* Align with the start of the left part */
+  /* Clip this part to only be visible over the right pane */
+  clip-path: inset(0 0 0 48%); /* (top right bottom left) - clip left 48% */
+  width: 100%;
+}
+
+/*
+  Alternative and SIMPLER approach for title if the above clip-path is tricky:
+  Have "ETHICCRAFT" and "SOCIETY" as separate elements in the .main-title-overlay.
+  Position them using margins/paddings to align.
+  Then style .title-part-left to be clipped by the left pane dimensions and
+  .title-part-right to be clipped by the right pane dimensions.
+  Let's refine the .title-part-right for the actual split:
+*/
+.main-title-overlay .title-part-left {
+  z-index: 1; /* Above potential background of .main-title-overlay */
+}
+
+.main-title-overlay .title-part-right {
+   /* This will sit on top of the .title-part-left for the portion over the right pane */
+   color: var(--color-text-white);
+   position: absolute;
+   top: 0; /* Should match .title-part-left's effective top */
+   left: 0; /* Should match .title-part-left's effective left */
+   width: 100%; /* Match width */
+   height: 100%; /* Match height */
+   clip-path: polygon(48% 0, 100% 0, 100% 100%, 48% 100%); /* Only show the part from 48% onwards */
+   pointer-events: none; /* Allow clicks through */
+   /* We also need a separate element for the second word "SOCIETY" if it's stacked */
+}
+
+/* Let's simplify the title structure for exactness as per image.
+   "AFRICAN" (ETHICCRAFT) has the texture.
+   "FOREST" (SOCIETY) has the texture on the left, white on the right.
+   This implies two lines of text.
+*/
+.main-title-overlay {
+  /* ... (previous .main-title-overlay styles) ... */
+  /* top: 40%; /* Adjust based on final look */
+  /* transform: translateY(-50%); */
+  /* The previous was a single line attempt. For two lines: */
+  display: block;
+  padding-left: 40px; /* From left edge of page */
+  top: calc(50% - ( (clamp(60px, 12vw, 150px) * 0.9) / 2) ); /* Attempt to center two lines */
+}
+
+.main-title-overlay span { /* Common style for both lines */
+  display: block; /* Each word on new line */
+  position: relative;
+  width: 100%; /* Span full width to handle effects */
+}
+
+/* This structure requires ETHICCRAFT and SOCIETY to be two separate spans */
+/* Then we need to handle the "SOCIETY" part being half-textured, half-white */
+.main-title-overlay .title-line {
+    position: relative; /* Context for pseudo-elements */
+    display: block; /* Each line takes full width */
+}
+
+.main-title-overlay .title-line.textured-left {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        var(--current-slide-image);
+    background-size: cover;
+    background-position: var(--slide-image-position-x) var(--slide-image-position-y);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Clip this effect to the left pane */
+    clip-path: polygon(0 0, 48% 0, 48% 100%, 0 100%);
+}
+
+.main-title-overlay .title-line.white-right::after {
+    content: attr(data-text); /* Get text from data-text attribute */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--color-text-white);
+    -webkit-background-clip: initial; /* Reset any inherited clipping */
+    background-clip: initial;
+    clip-path: polygon(48% 0, 100% 0, 100% 100%, 48% 100%); /* Show only on right side */
+    pointer-events: none;
+}
+/* Apply to JSX like this:
+  <div className="main-title-overlay">
+    <span className="title-line textured-left" data-text="ETHICCRAFT">ETHICCRAFT</span>
+    <span className="title-line textured-left white-right" data-text="SOCIETY">SOCIETY</span>
+  </div>
+  This creates "ETHICCRAFT" fully textured.
+  "SOCIETY" will have the textured effect on the left (up to 48%)
+  and the ::after pseudo-element will provide the white text on the right (from 48% onwards).
+*/
+
+
+/* --- Slider Controls Vertical (Right Edge) --- */
+.slider-controls-vertical {
+  position: absolute;
+  right: 20px; /* Distance from edge */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-dots-vertical {
+  display: flex;
+  flex-direction: column; /* Stack dots vertically */
+  align-items: center;
+  margin-bottom: 25px; /* Space between dots and arrows */
+}
+
+.slider-dots-vertical .dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-slider-controls);
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
+  margin-bottom: 12px; /* Space between dots */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  opacity: 0.6;
+}
+.slider-dots-vertical .dot:last-child {
+  margin-bottom: 0;
+}
+.slider-dots-vertical .dot:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+.slider-dots-vertical .dot.active {
+  background-color: var(--color-text-white);
+  opacity: 1;
+  transform: scale(1.3);
+  box-shadow: 0 0 5px rgba(255,255,255,0.5);
+}
+
+.slider-arrows-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-arrows-vertical .slider-arrow {
+  background: none;
+  border: none;
+  color: var(--color-slider-controls);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  opacity: 0.7;
+}
+.slider-arrows-vertical .slider-arrow:hover {
+  color: var(--color-slider-controls-hover);
+  opacity: 1;
+  transform: scale(1.1);
+}
+.slider-arrows-vertical .slider-arrow:first-child {
+  margin-bottom: 10px;
+}
+
+
+/* Responsive adjustments - basic example */
+@media (max-width: 1200px) {
+  .main-title-overlay {
+    font-size: clamp(50px, 10vw, 120px);
+  }
+  .left-pane { width: 45%; }
+  .right-pane { width: 55%; }
+  .main-title-overlay .title-line.textured-left,
+  .main-title-overlay .title-line.white-right::after {
+    clip-path: polygon(0 0, 45% 0, 45% 100%, 0 100%); /* Adjust clip path for textured */
+  }
+  .main-title-overlay .title-line.white-right::after {
+    clip-path: polygon(45% 0, 100% 0, 100% 100%, 45% 100%); /* Adjust clip path for white */
+  }
+}
+
+@media (max-width: 992px) {
+  /* On smaller screens, the intricate title spanning panes might be too hard
+     You might opt for a simpler stacked layout or adjust significantly */
+  .left-pane {
+    width: 100%;
+    height: 50vh; /* Example: Left pane takes top half */
+    padding: 20px;
+  }
+  .right-pane {
+    width: 100%;
+    height: 50vh; /* Right pane takes bottom half */
+  }
+  .page-container {
+    flex-direction: column;
+  }
+  .main-title-overlay {
+    /* Adjust title positioning and effect for stacked layout */
+    padding-left: 20px;
+    font-size: clamp(40px, 15vw, 80px);
+    /* Reset complex clipping for stacked view if it doesn't work well */
+    clip-path: none !important; /* Override for all parts */
+    top: 25%; /* Example adjustment */
+    transform: translateY(-50%);
+  }
+  .main-title-overlay .title-line.textured-left {
+    color: var(--color-subtitle-left); /* Fallback solid color for smaller screens */
+    background-image: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    clip-path: none !important;
+  }
+  .main-title-overlay .title-line.white-right::after {
+    content: attr(data-text);
+    color: var(--color-text-white); /* Keep white, but also no complex clipping */
+    clip-path: none !important;
+    position: static; /* Reset absolute positioning */
+    display: block; /* Ensure it's visible */
+  }
+  .main-navigation {
+    top: 15px; right: 15px; padding: 8px 10px;
+  }
+  .main-navigation a { font-size: 11px; margin-left: 15px; }
+  .slider-controls-vertical { right: 10px; }
+}
+
+@media (max-width: 768px) {
+  .logo-text-ethiccraft { font-size: 30px; }
+  .logo-text-society { font-size: 24px; }
+  .logo-tagline { font-size: 10px; }
+  .amazing-trips-subtitle { font-size: 14px; }
+  .description-text { font-size: 13px; }
+  .learn-more-link { font-size: 12px; }
+
+  .left-pane-content {
+    margin-bottom: 10vh; /* Adjust for smaller screens */
+  }
+}
+
+/* ... (all previous CSS from the "exact replica" answer) ... */
+
+/* Modify .slide for GSAP control */
+.slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  /* background-position is set inline */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* GSAP will control visibility and opacity via autoAlpha */
+  /* Set initial state for GSAP */
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05); /* Initial scale for incoming animation */
+  z-index: 0; /* Initial z-index */
+  will-change: opacity, transform; /* Hint for browser */
+}
+
+/* The .slide.active class is no longer strictly needed for the transition itself,
+   but can be kept if other styles depend on it, or removed.
+   GSAP directly targets the refs.
+   For simplicity, I'm removing opacity/transform from .slide.active
+   as GSAP handles it.
+*/
+/*
+.slide.active {
+  opacity: 1; /* GSAP handles this
+  transform: scale(1); /* GSAP handles this
+  z-index: 1; /* GSAP handles this
+}
+*/
+
+
+/* Initial state for title lines for GSAP reveal */
+.main-title-overlay .title-line {
+  /* ... (previous styles for .title-line) ... */
+  opacity: 0; /* GSAP will manage this via autoAlpha */
+  visibility: hidden; /* GSAP will manage this via autoAlpha */
+}
+
+
+/* Add a wrapper for left pane content if you need to parallax it as a group */
+.left-pane-content-wrapper {
+  /* This can be an empty rule, just used as a ref target for parallax */
+  /* Or add some positioning if needed, but likely not */
+  position: relative; /* Good practice for transformed children */
+  margin-top: auto; /* Pushes this content towards the bottom of its available space before main title*/
+  margin-bottom: 18vh; /* Adjust to position above where "FOREST" ends */
+}
+/* Replace .left-pane-content with .left-pane-content-wrapper in the CSS for margin-top/bottom: */
+
+/* Original .left-pane-content rules */
+/*
+.left-pane-content {
+  margin-top: auto;
+  margin-bottom: 18vh;
+}
+*/
+/* Move these to .left-pane-content-wrapper if it's the new layout block */
+.left-pane .amazing-trips-subtitle { /* Ensure this is targeting within the wrapper if structure changes */
+    font-family: var(--font-nav);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color-subtitle-left);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+.left-pane .description-text { /* Ensure this is targeting within the wrapper */
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-text-left-desc);
+    max-width: 450px;
+    margin-bottom: 25px;
+}
+.left-pane .learn-more-link { /* Ensure this is targeting within the wrapper */
+    font-family: var(--font-nav);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-text-left-desc);
+    /* ... other styles */
+}
+
+/* Ensure parallax target elements are ready for transform */
+.logo-header, .left-pane-content-wrapper, .main-title-overlay {
+    will-change: transform; /* Hint for browser for parallax */
+}
