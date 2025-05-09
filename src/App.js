@@ -13,12 +13,20 @@ import ExcursionRoute from './Route';
 import TriglavSection from './Destination';
 import HexagonGrids from './newhexagon';
 import BusinessInfographics1 from './newbi';
+import MachuPicchuReasonsnew from './New_try';
+import TravelShowcase from './slider_new';
+import MyDesignComponent from './text_base_slider';
+import EthiccraftSociety from './new_header';
 
 function App() {
   return (
     <div className="App">
+      <EthiccraftSociety />
       <HexagonGrid />
+      <MyDesignComponent />
+      <MachuPicchuReasonsnew />
       <HexagonGrids />
+      <TravelShowcase />
       {/* <BusinessInfographic /> */}
       <BusinessInfographics1 />
       <BusinessInfographics />
@@ -31,6 +39,7 @@ function App() {
       <MachuPicchuReasons />
       <ExcursionRoute />
       <TriglavSection />
+
     </div>
   );
 }
