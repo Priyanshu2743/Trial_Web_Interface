@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const images = [
   {
-    src: '/assets/3.jpg', // Replace with your image URLs
+    src: '/assets/3.jpg', 
     alt: 'Luolavuori Exterior 1',
     title: 'EXTERIORS',
     subtitle: 'Luolavuori',
   },
   {
-    src: '/assets/4.jpg', // Replace with your image URLs
+    src: '/assets/4.jpg', 
     alt: 'Luolavuori Exterior 2',
     title: 'EXTERIORS',
     subtitle: 'Luolavuori',

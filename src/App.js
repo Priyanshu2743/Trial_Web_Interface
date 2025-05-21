@@ -17,16 +17,19 @@ import MachuPicchuReasonsnew from './New_try';
 import TravelShowcase from './slider_new';
 import MyDesignComponent from './text_base_slider';
 import EthiccraftSociety from './new_header';
+import Text from './Text_Slider1';
+import  Timeline  from './timeline';
+import CertificateSection from './Certificates';
 
 function App() {
   return (
     <div className="App">
       <EthiccraftSociety />
       <HexagonGrid />
-      <MyDesignComponent />
+      {/* <MyDesignComponent /> */}
       <MachuPicchuReasonsnew />
-      <HexagonGrids />
-      <TravelShowcase />
+      {/* <HexagonGrids /> */}
+      {/* <TravelShowcase /> */}
       {/* <BusinessInfographic /> */}
       <BusinessInfographics1 />
       <BusinessInfographics />
@@ -39,7 +42,9 @@ function App() {
       <MachuPicchuReasons />
       <ExcursionRoute />
       <TriglavSection />
-
+      <Text />
+      <Timeline />
+      <CertificateSection />
     </div>
   );
 }
